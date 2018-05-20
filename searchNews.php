@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
 <head>
     <meta charset="UTF-8">
-    <title>发布新闻</title>
+    <title>查找新闻</title>
 </head>
 <body>
 <br>
@@ -21,10 +21,10 @@
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li class="active">
+						<li >
 							 <a href="addNews.php">发布新闻</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="searchNews.php">查找新闻</a>
 						</li>
 						<li >
@@ -39,7 +39,7 @@
 				</div>
 				
 			</nav>
-	<div class="jumbotron">
+			<div class="jumbotron">
 				<h1>
 					Hello, world!
 				</h1>
@@ -53,26 +53,40 @@
 		</div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-3 column">
-		</div>
-		<div class="col-md-6 column">
-			<form role="form" action="addAction.php" method="POST" enctype="multipart/form-data">
-				<div class="form-group">
-					 <label for="exampleInputPassword1">Title</label><input type="text" name="title" class="form-control" id="exampleInputPassword1" />
-				</div>
-				<div class="form-group">
-					 <label for="exampleInputFile">File input</label><input type="file" name="file" id="file" />
-					<p class="help-block">
-						请选择txt文件
-					</p>
-				</div>
-				<div class="checkbox">
-					 <label><input type="checkbox" />Check me out</label>
-				</div> <button type="submit" class="btn btn-default">Submit</button>
-			</form>
-		</div>
-		<div class="col-md-3 column">
-		</div>
+		<?php 
+		try {
+			if(isset($_POST['key'])){
+				$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+				if (!$connect)
+				{
+					die('Could not connect: ' . mysql_error());
+				}
+				//��ѯ�������ݲ���json�ĸ�ʽ���
+				$key=$_POST['key'];
+				$sql = "select * from news where title like '%$key%';";
+				// ִ��sql��䷵�ؽ����
+				$result = mysqli_query($connect,$sql);
+				
+				while($row = mysqli_fetch_array($result))
+				{
+					echo "<div class=\"col-md-4 column\"><h2>";
+					echo $row['title'];
+					echo "</h2><p>";
+					// ��ȡ����
+					$context_name=$row['context'];
+					$myfile = fopen($context_name, "r") or die("Unable to open file!");
+					echo fread($myfile,filesize($context_name));
+					fclose($myfile);
+					echo "</p><p><a class=\"btn\" href=\"#\">View details</a></p></div>";
+				}
+			}else{
+				echo "请输入标题关键字";
+			}
+			
+		} catch (Exception $e) {
+			echo "请输入标题关键字";
+		}
+		?>
 	</div>
 </div>
 </body>

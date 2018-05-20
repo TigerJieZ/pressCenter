@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
 <head>
     <meta charset="UTF-8">
-    <title>发布新闻</title>
+    <title>新闻管理</title>
 </head>
 <body>
 <br>
@@ -50,30 +50,98 @@
 					 <a class="btn btn-primary btn-large" href="#">Learn more</a>
 				</p>
 			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							编号
+						</th>
+						<th>
+							标题
+						</th>
+						<th>
+							日期
+						</th>
+						<th>
+					操作
+					</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							1
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							01/04/2012
+						</td>
+						<td>
+							Default
+						</td>
+					</tr>
+					<tr class="success">
+						<td>
+							1
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							01/04/2012
+						</td>
+						<td>
+							Approved
+						</td>
+					</tr>
+					<tr class="error">
+						<td>
+							2
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							02/04/2012
+						</td>
+						<td>
+							Declined
+						</td>
+					</tr>
+					<tr class="warning">
+						<td>
+							3
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							03/04/2012
+						</td>
+						<td>
+							Pending
+						</td>
+					</tr>
+					<tr class="info">
+						<td>
+							4
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							04/04/2012
+						</td>
+						<td>
+							Call in to confirm
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-	<div class="row clearfix">
-		<div class="col-md-3 column">
-		</div>
-		<div class="col-md-6 column">
-			<form role="form" action="addAction.php" method="POST" enctype="multipart/form-data">
-				<div class="form-group">
-					 <label for="exampleInputPassword1">Title</label><input type="text" name="title" class="form-control" id="exampleInputPassword1" />
-				</div>
-				<div class="form-group">
-					 <label for="exampleInputFile">File input</label><input type="file" name="file" id="file" />
-					<p class="help-block">
-						请选择txt文件
-					</p>
-				</div>
-				<div class="checkbox">
-					 <label><input type="checkbox" />Check me out</label>
-				</div> <button type="submit" class="btn btn-default">Submit</button>
-			</form>
-		</div>
-		<div class="col-md-3 column">
-		</div>
 	</div>
-</div>
-</body>
-</html>
+	</body>
+	</html>
