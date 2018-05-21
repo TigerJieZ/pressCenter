@@ -18,16 +18,16 @@
 				<div class="navbar-header">
 					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="index.php">Home</a>
 				</div>
-				
+
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li class="active">
+						<li >
 							 <a href="addNews.php">发布新闻</a>
 						</li>
 						<li >
 							<a href="searchNews.php">查找新闻</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="manageNews.php">管理新闻</a>
 						</li>
 					</ul>
@@ -37,7 +37,7 @@
 						</div> <button type="submit" class="btn btn-default">Search</button>
 					</form>
 				</div>
-				
+
 			</nav>
 	<div class="jumbotron">
 				<h1>
@@ -68,76 +68,38 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Default
-						</td>
-					</tr>
-					<tr class="success">
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						<td>
-							Approved
-						</td>
-					</tr>
-					<tr class="error">
-						<td>
-							2
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							02/04/2012
-						</td>
-						<td>
-							Declined
-						</td>
-					</tr>
-					<tr class="warning">
-						<td>
-							3
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							03/04/2012
-						</td>
-						<td>
-							Pending
-						</td>
-					</tr>
-					<tr class="info">
-						<td>
-							4
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							04/04/2012
-						</td>
-						<td>
-							Call in to confirm
-						</td>
-					</tr>
+          <?php
+          $connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+      		if (!$connect)
+       		{
+      			die('Could not connect: ' . mysql_error());
+      		}
+      		//查询单条数据并以json的格式输出
+      		$sql = "select * from news;";
+      		// 执行sql语句返回结果集
+      		$result = mysqli_query($connect,$sql);
+
+      		while($row = mysqli_fetch_array($result))
+      		{
+            echo "<tr>";
+            echo "<td>";
+            echo $row['ID'];
+            echo "</td>";
+            echo "<td>";
+            echo $row['title'];
+            echo "</td>";
+            echo "<td>";
+            echo $row['date'];
+            echo "</td>";
+            echo "<td><td>";
+            echo "<form action=\"editNews.php?Gid=";
+            echo $row['ID'];
+            echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">编辑</button></form></td>";
+            echo "<td><form action=\"deleteAction.php?Gid=";
+            echo $row['ID'];
+            echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">删除</button></form></td></td>";
+          }
+           ?>
 				</tbody>
 			</table>
 		</div>
