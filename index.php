@@ -18,7 +18,7 @@
 				<div class="navbar-header">
 					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="index.php">Home</a>
 				</div>
-				
+
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li >
@@ -37,7 +37,7 @@
 						</div> <button type="submit" class="btn btn-default">Search</button>
 					</form>
 				</div>
-				
+
 			</nav>
 			<div class="jumbotron">
 				<h1>
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 	<div class="row clearfix">
-		<?php 
+		<?php
 		$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
 		if (!$connect)
  		{
@@ -66,15 +66,16 @@
 
 		while($row = mysqli_fetch_array($result))
 		{
-			echo "<div class=\"col-md-4 column\"><h2>";
+			echo "<div class=\"col-md-4 column\"><h2><center>";
 			echo $row['title'];
-			echo "</h2><p>";
+			echo "</center></h2><p>";
 			// 读取正文
 			$context_name=$row['context'];
 			$myfile = fopen($context_name, "r") or die("Unable to open file!");
 			echo fread($myfile,filesize($context_name));
 			fclose($myfile);
-			echo "</p><p><a class=\"btn\" href=\"#\">View details</a></p></div>";
+      $id=$row['ID'];
+			echo "</p><p><right><a class=\"btn\" href=\"commentNews.php?id=$id\">评论</a></right></p></div>";
   		}
 		?>
 	</div>
