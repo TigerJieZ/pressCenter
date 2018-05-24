@@ -126,7 +126,7 @@ function getUrlQuery($array_query)
 		}
 		?><br><br>
     <?php
-    $sql="SELECT * FROM comments where newsID=$id";
+    $sql="SELECT * FROM comments where newsID=$id and state=1";
     $result = mysqli_query($connect,$sql);
 
     while($row = mysqli_fetch_array($result))
