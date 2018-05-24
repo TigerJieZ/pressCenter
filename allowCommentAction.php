@@ -1,5 +1,4 @@
 <?php
-
 $url= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 //1 用parse_url解析URL,此处是$str
 $arr = parse_url($url);
@@ -41,9 +40,8 @@ if (!$connect)
 {
   die('Could not connect: ' . mysql_error());
 }
-$comment=$_POST['comment'];
-$date=date("Y-m-d h:i:s",time());
-$sql="INSERT INTO comments(context,newsID,date) value('$comment','$id','$date')";
+$sql="UPDATE comments set state=1 where id=$id";
+
 $result=mysqli_query($connect,$sql);
 echo $sql;
    if(!$result){
@@ -51,7 +49,6 @@ echo $sql;
       die("Could not enter data:".mysql_error());
    }mysqli_close($connect);
    echo "Entered data successfully!";
-echo "<script>alert('评论成功');history.go('-1');location.reload();</script>";
-
+echo "<script>alert('审批成功');history.go('-1');location.reload();</script>";
 
  ?>

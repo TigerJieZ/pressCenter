@@ -1,26 +1,26 @@
-<?php 
+<?php
 	if ($_FILES['file']['error'] > 0){
-		echo "<script>alert('ÇëÑ¡ÔñÒªÉÏ´«µÄÎÄ¼ş£¡');history.go(-1);location.reload();</script>";
+		echo "<script>alert('ï¿½ï¿½Ñ¡ï¿½ï¿½Òªï¿½Ï´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½');history.go(-1);location.reload();</script>";
 		exit();
 	}
 	$fileName = basename($_FILES['file']['name']);
 	$tempName = $_FILES['file']['tmp_name'];
-	 
+
 	$date = date("Ymd",time());
 	$dir = "F:/news/".$date;
-	chmod($dir, 0777);  //ĞŞ¸ÄÎÄ¼şÈ¨ÏŞ
 	if (!is_dir($dir)){
-		mkdir($dir,0777,true);//´´½¨¶à¼¶Ä¿Â¼
-		//echo "<script type='text/javascript'>alert('ÇëÔÚÓĞĞ§µÄÊ±¼äÄÚÖ´ĞĞĞŞ¸Ä²Ù×÷£¡');history.go(-1);location.reload();</script>";
+		mkdir($dir,0777,true);//ï¿½ï¿½ï¿½ï¿½ï¿½à¼¶Ä¿Â¼
+		//echo "<script type='text/javascript'>alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ş¸Ä²ï¿½ï¿½ï¿½ï¿½ï¿½');history.go(-1);location.reload();</script>";
 		//exit();
 	}
+	chmod($dir, 0777);  //ï¿½Ş¸ï¿½ï¿½Ä¼ï¿½È¨ï¿½ï¿½
 	$newFile = $dir."/".$fileName;
-	 echo $newFile;
+	echo $newFile;
 	if (is_uploaded_file($_FILES['file']['tmp_name'])){
 		$res = move_uploaded_file($_FILES['file']['tmp_name'], iconv("gb2312", "UTF-8", $newFile));
-		 
+
 		if (!$res){
-			echo "<script>alert('ÉÏ´«Ê§°Ü');history.go(-1);location.reload();</script>";
+			echo "<script>alert('æ–‡ä»¶ä¸Šä¼ å¤±è´¥');history.go(-1);location.reload();</script>";
 		}else {
 			$title=$_POST['title'];
 			$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
@@ -28,14 +28,15 @@
 			{
 				die('Could not connect: ' . mysql_error());
 			}
-			$date=date("Y-m-d h:i:sa",time());
+			$date=date("Y-m-d h:i:s",time());
 			$sql="INSERT INTO news(title,context,date) value('$title','$newFile','$date')";
+			echo $sql;
 			$result=mysqli_query($connect,$sql);
          if(!$result){
             die("Could not enter data:".mysql_error());
          }mysqli_close($conn);
          echo "Entered data successfully!";
-			echo "<script>alert('ÉÏ´«³É¹¦');history.go(-1);location.reload();</script>";
+			echo "<script>alert('å‘å¸ƒæˆåŠŸï¼');history.go(-1);location.reload();</script>";
 		}
 	}
 ?>

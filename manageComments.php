@@ -56,23 +56,25 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>
+						<th width="10%">
 							编号
 						</th>
-						<th>
+						<th width="70%">
 							内容
 						</th>
-						<th>
+						<th width="10%">
 							日期
 						</th>
-						<th>
+						<th width="10%">
 					操作
 					</th>
 					</tr>
 				</thead>
 				<tbody>
           <?php
+          header("Content-type: text/html;charset=utf-8");
           $connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+          mysqli_query($connect,"set names utf8");
       		if (!$connect)
        		{
       			die('Could not connect: ' . mysql_error());
@@ -85,22 +87,28 @@
       		while($row = mysqli_fetch_array($result))
       		{
             echo "<tr>";
-            echo "<td>";
+            echo "<td width=\"10%\">";
             echo $row['id'];
             echo "</td>";
-            echo "<td>";
-            echo $row['comment'];
+            echo "<td width=\"60%\">";
+            echo $row['context'];
             echo "</td>";
-            echo "<td>";
+            echo "<td width=\"20%\">";
             echo $row['date'];
             echo "</td>";
-            echo "<td><td>";
-            echo "<form action=\"editNews.php?Gid=";
-            echo $row['id'];
-            echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">编辑</button></form></td>";
-            echo "<td><form action=\"deleteAction.php?Gid=";
-            echo $row['id'];
-            echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">删除</button></form></td></td>";
+            echo "<td width=\"10%\">";
+            if ($row['state']==1){
+              echo "<form action=\"revokeCommentAction.php?id=";
+              echo $row['id'];
+              echo "\" method=\"POST\">";
+              echo "<button type=\"submit\" class=\"btn btn-default\">撤销</button></form>";
+            }else{
+              echo "<form action=\"allowCommentAction.php?id=";
+              echo $row['id'];
+              echo "\" method=\"POST\">";
+              echo "<button type=\"submit\" class=\"btn btn-default\">允许</button></form>";
+            }
+            echo "</td>";
           }
            ?>
 				</tbody>

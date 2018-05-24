@@ -61,7 +61,7 @@ function getUrlQuery($array_query)
 						<li >
 							 <a href="addNews.php">发布新闻</a>
 						</li>
-						<li class="active">
+						<li>
 							<a href="searchNews.php">查找新闻</a>
 						</li>
 						<li >
@@ -69,6 +69,9 @@ function getUrlQuery($array_query)
 						</li>
             <li>
 							<a href="manageComments.php">管理评论</a>
+						</li>
+            <li class="active">
+							<a href="manageComments.php">新闻详情</a>
 						</li>
 					</ul>
 					<form class="navbar-form navbar-right" role="search" action="searchNews.php" method="POST">
@@ -99,6 +102,7 @@ function getUrlQuery($array_query)
       $id=$arr_query['id'];
 			if($id>=0){
 				$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+        mysqli_query($connect,"set names utf8");
 				if (!$connect)
 				{
 					die('Could not connect: ' . mysql_error());
@@ -151,15 +155,12 @@ function getUrlQuery($array_query)
 				<fieldset>
 					 <label>请输入评论</label><input type="text" name="comment"/>
             <span class="help-block">请理性发言，维护网络环境从我做起。</span>
-            <label class="checkbox">
-              <input type="checkbox" /> 勾选同意</label>
               <center> <button type="submit" class="btn">提交</button></center>
 				</fieldset>
 			</form>
 		</div>
 	</div><br><br><br><br><br>
   </div>
-
     <div class="col-md-3 column"></div>
 	</div>
 </div>

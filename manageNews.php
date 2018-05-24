@@ -73,6 +73,7 @@
 				<tbody>
           <?php
           $connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+          mysqli_query($connect,"set names utf8");
       		if (!$connect)
        		{
       			die('Could not connect: ' . mysql_error());
