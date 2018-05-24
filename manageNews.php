@@ -30,6 +30,9 @@
 						<li class="active">
 							<a href="manageNews.php">管理新闻</a>
 						</li>
+            <li>
+							<a href="manageComments.php">管理评论</a>
+						</li>
 					</ul>
 					<form class="navbar-form navbar-right" role="search" action="searchNews.php" method="POST">
 						<div class="form-group">
@@ -83,7 +86,7 @@
       		{
             echo "<tr>";
             echo "<td>";
-            echo $row['ID'];
+            echo $row['id'];
             echo "</td>";
             echo "<td>";
             echo $row['title'];
@@ -93,10 +96,10 @@
             echo "</td>";
             echo "<td><td>";
             echo "<form action=\"editNews.php?Gid=";
-            echo $row['ID'];
+            echo $row['id'];
             echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">编辑</button></form></td>";
             echo "<td><form action=\"deleteAction.php?Gid=";
-            echo $row['ID'];
+            echo $row['id'];
             echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">删除</button></form></td></td>";
           }
            ?>

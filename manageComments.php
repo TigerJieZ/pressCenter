@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
 <head>
     <meta charset="UTF-8">
-    <title>查找新闻</title>
+    <title>新闻管理</title>
 </head>
 <body>
 <br>
@@ -24,13 +24,13 @@
 						<li >
 							 <a href="addNews.php">发布新闻</a>
 						</li>
-						<li class="active">
+						<li >
 							<a href="searchNews.php">查找新闻</a>
 						</li>
-						<li >
+						<li class>
 							<a href="manageNews.php">管理新闻</a>
 						</li>
-            <li>
+            <li class="active">
 							<a href="manageComments.php">管理评论</a>
 						</li>
 					</ul>
@@ -42,7 +42,7 @@
 				</div>
 
 			</nav>
-			<div class="jumbotron">
+	<div class="jumbotron">
 				<h1>
 					Hello, world!
 				</h1>
@@ -53,44 +53,60 @@
 					 <a class="btn btn-primary btn-large" href="#">Learn more</a>
 				</p>
 			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							编号
+						</th>
+						<th>
+							内容
+						</th>
+						<th>
+							日期
+						</th>
+						<th>
+					操作
+					</th>
+					</tr>
+				</thead>
+				<tbody>
+          <?php
+          $connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+      		if (!$connect)
+       		{
+      			die('Could not connect: ' . mysql_error());
+      		}
+      		//查询单条数据并以json的格式输出
+      		$sql = "select * from comments;";
+      		// 执行sql语句返回结果集
+      		$result = mysqli_query($connect,$sql);
+
+      		while($row = mysqli_fetch_array($result))
+      		{
+            echo "<tr>";
+            echo "<td>";
+            echo $row['id'];
+            echo "</td>";
+            echo "<td>";
+            echo $row['comment'];
+            echo "</td>";
+            echo "<td>";
+            echo $row['date'];
+            echo "</td>";
+            echo "<td><td>";
+            echo "<form action=\"editNews.php?Gid=";
+            echo $row['id'];
+            echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">编辑</button></form></td>";
+            echo "<td><form action=\"deleteAction.php?Gid=";
+            echo $row['id'];
+            echo "\" method=\"POST\"><button type=\"submit\" class=\"btn btn-default\">删除</button></form></td></td>";
+          }
+           ?>
+				</tbody>
+			</table>
 		</div>
 	</div>
-	<div class="row clearfix">
-		<?php
-		try {
-			if(isset($_POST['key'])){
-				$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
-				if (!$connect)
-				{
-					die('Could not connect: ' . mysql_error());
-				}
-				//��ѯ�������ݲ���json�ĸ�ʽ���
-				$key=$_POST['key'];
-				$sql = "select * from news where title like '%$key%';";
-				// ִ��sql��䷵�ؽ����
-				$result = mysqli_query($connect,$sql);
-
-				while($row = mysqli_fetch_array($result))
-				{
-					echo "<div class=\"col-md-4 column\"><h2>";
-					echo $row['title'];
-					echo "</h2><p>";
-					// ��ȡ����
-					$context_name=$row['context'];
-					$myfile = fopen($context_name, "r") or die("Unable to open file!");
-					echo fread($myfile,filesize($context_name));
-					fclose($myfile);
-					echo "</p><p><a class=\"btn\" href=\"#\">View details</a></p></div>";
-				}
-			}else{
-				echo "请输入标题关键字";
-			}
-
-		} catch (Exception $e) {
-			echo "请输入标题关键字";
-		}
-		?>
 	</div>
-</div>
-</body>
-</html>
+	</body>
+	</html>

@@ -30,6 +30,9 @@
 						<li >
 							<a href="manageNews.php">管理新闻</a>
 						</li>
+            <li>
+							<a href="manageComments.php">管理评论</a>
+						</li>
 					</ul>
 					<form class="navbar-form navbar-right" role="search" action="searchNews.php" method="POST">
 						<div class="form-group">
@@ -74,7 +77,7 @@
 			$myfile = fopen($context_name, "r") or die("Unable to open file!");
 			echo fread($myfile,filesize($context_name));
 			fclose($myfile);
-      $id=$row['ID'];
+      $id=$row['id'];
 			echo "</p><p><right><a class=\"btn\" href=\"commentNews.php?id=$id\">评论</a></right></p></div>";
   		}
 		?>

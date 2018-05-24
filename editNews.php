@@ -70,6 +70,9 @@ function getUrlQuery($array_query)
  						<li >
  							<a href="manageNews.php">管理新闻</a>
  						</li>
+            <li>
+							<a href="manageComments.php">管理评论</a>
+						</li>
  					</ul>
  					<form class="navbar-form navbar-right" role="search" action="searchNews.php" method="POST">
  						<div class="form-group">
