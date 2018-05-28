@@ -24,6 +24,7 @@
 		}else {
 			$title=$_POST['title'];
 			$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+			mysqli_query($connect,"set names utf8");
 			if (!$connect)
 			{
 				die('Could not connect: ' . mysql_error());
@@ -34,7 +35,24 @@
 			$result=mysqli_query($connect,$sql);
          if(!$result){
             die("Could not enter data:".mysql_error());
-         }mysqli_close($conn);
+         }
+         echo "Entered data successfully!";
+			$sql="SELECT id from news where date='$date'";
+			echo $sql;
+			$result = mysqli_query($connect,$sql);
+			while($row = mysqli_fetch_array($result))
+			{
+				$newsID=$row['id'];
+				echo $newsID;
+			}
+			session_start();
+			$userID=$_SESSION['id'];
+			$sql="INSERT INTO news_user value($newsID,$userID)";
+			echo $sql;
+			$result=mysqli_query($connect,$sql);
+         if(!$result){
+            die("Could not enter data:".mysql_error());
+         }mysqli_close($connect);
          echo "Entered data successfully!";
 			echo "<script>alert('发布成功！');history.go(-1);location.reload();</script>";
 		}

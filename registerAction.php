@@ -36,9 +36,9 @@ $check_query = mysqli_query($connect,$sql);
 $result=mysqli_query($connect,$sql);
 while($row = mysqli_fetch_array($result))
 {
-if($row['id']){
-  echo "<script>alert('该邮箱已被注册！');history.go('-1');location.reload();</script>";
-}
+  if($row['id']){
+    echo "<script>alert('该邮箱已被注册！');history.go('-1');location.reload();</script>";
+  }
 }
 $sql="INSERT INTO user(email,password,name,gender) value('$email','$password','$name','$gender')";
 echo $sql;

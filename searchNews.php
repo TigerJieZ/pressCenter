@@ -27,15 +27,31 @@
 						<li class="active">
 							<a href="searchNews.php">查找新闻</a>
 						</li>
-						<li >
-							<a href="manageNews.php">管理新闻</a>
-						</li>
-            <li>
-							<a href="manageComments.php">管理评论</a>
-						</li>
+            <?php session_start();
+            if (isset($_SESSION['permission'])){
+              if($_SESSION['permission']==1){
+                echo "
+                <li >
+                  <a href=\"manageNews.php\">管理新闻</a>
+                </li>
+                <li>
+    							<a href=\"manageComments.php\">管理评论</a>
+    						</li>";
+              }
+            }
+             ?>
 					</ul>
 					<form class="navbar-form navbar-right" role="search" action="searchNews.php" method="POST">
-						<div class="form-group">
+            <?php
+              if(isset($_SESSION['id'])){
+              echo $_SESSION['name'];
+              echo "&emsp;&emsp;<a href=\"logout.php\">注销</a>";
+            }else{
+              echo "<a href=\"login.php\">登录</a>";
+              echo "&emsp;&emsp;&emsp;";
+              echo "<a href=\"register.php\">注册</a>";
+            }?>
+            <div class="form-group">
 							<input type="text" class="form-control" name="key"/>
 						</div> <button type="submit" class="btn btn-default">Search</button>
 					</form>

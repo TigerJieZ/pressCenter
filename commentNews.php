@@ -64,18 +64,34 @@ function getUrlQuery($array_query)
 						<li>
 							<a href="searchNews.php">查找新闻</a>
 						</li>
-						<li >
-							<a href="manageNews.php">管理新闻</a>
-						</li>
-            <li>
-							<a href="manageComments.php">管理评论</a>
-						</li>
+            <?php session_start();
+            if (isset($_SESSION['permission'])){
+              if($_SESSION['permission'==1]){
+                echo "
+                <li >
+                  <a href=\"manageNews.php\">管理新闻</a>
+                </li>
+                <li>
+    							<a href=\"manageComments.php\">管理评论</a>
+    						</li>";
+              }
+            }
+             ?>
             <li class="active">
 							<a href="manageComments.php">新闻详情</a>
 						</li>
 					</ul>
 					<form class="navbar-form navbar-right" role="search" action="searchNews.php" method="POST">
-						<div class="form-group">
+            <?php
+              if(isset($_SESSION['id'])){
+              echo $_SESSION['name'];
+              echo "&emsp;&emsp;<a href=\"logout.php\">注销</a>";
+            }else{
+              echo "<a href=\"login.php\">登录</a>";
+              echo "&emsp;&emsp;&emsp;";
+              echo "<a href=\"register.php\">注册</a>";
+            }?>
+            <div class="form-group">
 							<input type="text" class="form-control" name="key"/>
 						</div> <button type="submit" class="btn btn-default">Search</button>
 					</form>
@@ -144,6 +160,18 @@ function getUrlQuery($array_query)
       echo "<br>";
       echo "<div style=\"float:right;color:red;\">";
       echo $temp_date;
+      echo "&emsp;&emsp;&emsp;";
+      $commentsID=$row['id'];
+      $sql="SELECT userID from comments_user where commentsID= $commentsID";
+      $result_u = mysqli_query($connect,$sql);
+      while($row_u=mysqli_fetch_array($result_u)){
+        $userID=$row_u['userID'];
+      }
+      $sql="SELECT name from user where id=$userID";
+      $result_n = mysqli_query($connect,$sql);
+      while($row_n=mysqli_fetch_array($result_n)){
+        echo $row_n['name'];
+      }
       echo "</div>";
       echo "<legend> </legend><br><br>";
     }

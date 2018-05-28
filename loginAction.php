@@ -17,6 +17,7 @@ if($result = mysqli_fetch_array($check_query)){
     $_SESSION['email'] = $result['email'];
     $_SESSION['name'] = $result['name'];
     $_SESSION['id'] = $result['id'];
+    $_SESSION['permission']=$result['permission'];
     echo $_SESSION['name'],' 欢迎你！进入 <a href="index.php">用户中心</a><br />';
     echo '点击此处 <a href="login.php?action=logout">注销</a> 登录！<br />';
     exit;
