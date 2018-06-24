@@ -1,11 +1,11 @@
 <?php
 
 $url= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
-//1 用parse_url解析URL,此处是$str
+//1 鐢╬arse_url瑙ｆ瀽URL,姝ゅ鏄�$str
 $arr = parse_url($url);
 
 
-//2 将URL中的参数取出来放到数组里
+//2 灏哢RL涓殑鍙傛暟鍙栧嚭鏉ユ斁鍒版暟缁勯噷
 $arr_query = convertUrlQuery($arr['query']);
 /**
   * Returns the url query as associative array
@@ -44,7 +44,7 @@ function getUrlQuery($array_query)
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
 <head>
     <meta charset="UTF-8">
-    <title>查找新闻</title>
+    <title>鏌ユ壘鏂伴椈</title>
 </head>
 <body>
 <br>
@@ -66,13 +66,13 @@ function getUrlQuery($array_query)
 						</li>
             <?php session_start();
             if (isset($_SESSION['permission'])){
-              if($_SESSION['permission'==1]){
+              if($_SESSION['permission']==1){
                 echo "
                 <li >
                   <a href=\"manageNews.php\">管理新闻</a>
                 </li>
                 <li>
-    							<a href=\"manageComments.php\">管理评论</a>
+    							<a href=\"manageComments.php\">新闻详情</a>
     						</li>";
               }
             }
@@ -117,15 +117,15 @@ function getUrlQuery($array_query)
 		try {
       $id=$arr_query['id'];
 			if($id>=0){
-				$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+$connect = mysqli_connect('10.18.33.86','H_Z09415124','sujie1997','h_z09415124') or die('Unale to connect');
         mysqli_query($connect,"set names utf8");
 				if (!$connect)
 				{
 					die('Could not connect: ' . mysql_error());
 				}
-				//��ѯ�������ݲ���json�ĸ�ʽ���
+				//锟斤拷询锟斤拷锟斤拷锟斤拷锟捷诧拷锟斤拷json锟侥革拷式锟斤拷锟�
 				$sql = "select * from news where ID =$id";
-				// ִ��sql��䷵�ؽ����
+				// 执锟斤拷sql锟斤拷浞碉拷亟锟斤拷锟斤拷
 				$result = mysqli_query($connect,$sql);
 
 				while($row = mysqli_fetch_array($result))
@@ -133,7 +133,7 @@ function getUrlQuery($array_query)
 					echo "<div class=\"col-md-6 column\"><center><h2>";
 					echo $row['title'];
 					echo "</h2></center><p>";
-					// ��ȡ����
+					// 锟斤拷取锟斤拷锟斤拷
 					$context_name=$row['context'];
 					$myfile = fopen($context_name, "r") or die("Unable to open file!");
 					echo fread($myfile,filesize($context_name));
@@ -141,11 +141,11 @@ function getUrlQuery($array_query)
 					echo "</p>";
 				}
 			}else{
-				echo "请输入要评论的新闻ID";
+				echo "璇疯緭鍏ヨ璇勮鐨勬柊闂籌D";
 			}
 
 		} catch (Exception $e) {
-			echo "请输入要评论的新闻ID";
+			echo "璇疯緭鍏ヨ璇勮鐨勬柊闂籌D";
 		}
 		?><br><br>
     <?php
@@ -181,9 +181,9 @@ function getUrlQuery($array_query)
 		<div class="span12">
 			<form action="commentAction.php?id=<?php echo $id; ?>" method="post">
 				<fieldset>
-					 <label>请输入评论</label><input type="text" name="comment"/>
-            <span class="help-block">请理性发言，维护网络环境从我做起。</span>
-              <center> <button type="submit" class="btn">提交</button></center>
+					 <label>新闻评论</label><input type="text" name="comment"/>
+            <span class="help-block">维护良好的网络社区环境，从我做起！</span>
+              <center> <button type="submit" class="btn">发表</button></center>
 				</fieldset>
 			</form>
 		</div>

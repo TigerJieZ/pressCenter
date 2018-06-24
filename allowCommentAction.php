@@ -35,7 +35,7 @@ function getUrlQuery($array_query)
 }
 $id=$arr_query['id'];
 
-$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+$connect = mysqli_connect('10.18.33.86','H_Z09415124','sujie1997','h_z09415124') or die('Unale to connect');
 if (!$connect)
 {
   die('Could not connect: ' . mysql_error());

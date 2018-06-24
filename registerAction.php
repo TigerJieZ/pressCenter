@@ -24,7 +24,7 @@ if($password!=$passwordConfirm){
   echo "<script>alert('两次输入密码不匹配。');history.go('-1');location.reload();</script>";
 }
 
-$connect = mysqli_connect('localhost','root','','press') or die('Unale to connect');
+$connect = mysqli_connect('10.18.33.86','H_Z09415124','sujie1997','h_z09415124') or die('Unale to connect');
 mysqli_query($connect,"set names utf8");
 if (!$connect)
 {
