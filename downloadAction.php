@@ -1,5 +1,4 @@
 <?php
-
 $url= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 //1 用parse_url解析URL,此处是$str
 $arr = parse_url($url);
@@ -37,9 +36,7 @@ function getUrlQuery($array_query)
     $params = implode('&',$tmp);
     return $params;
 }
- ?>
-<?php
-$id= $arr_query['id'];
+      $id= $arr_query['Gid'];
 			$title=$_POST['title'];
 			$connect = mysqli_connect('10.18.33.86','H_Z09415124','sujie1997','h_z09415124') or die('Unale to connect');
       mysqli_query($connect,"set names utf8");
@@ -54,18 +51,24 @@ $id= $arr_query['id'];
      while($row = mysqli_fetch_array($result))
      {
        $context_name=$row['context'];
-       $myfile = fopen($context_name, "w") or die("Unable to open file!");
-       fwrite($myfile, $content);
-       fclose($myfile);
+        if (! file_exists ($context_name)) {
+            header('HTTP/1.1 404 NOT FOUND');
+        } else {
+            //以只读和二进制模式打开文件
+            $file = fopen ($context_name, "rb" );
+            //告诉浏览器这是一个文件流格式的文件
+            Header ( "Content-type: application/octet-stream" );
+            //请求范围的度量单位
+            Header ( "Accept-Ranges: bytes" );
+            //Content-Length是指定包含于请求或响应中数据的字节长度
+            Header ( "Accept-Length: " . filesize ($context_name) );
+            //用来告诉浏览器，文件是可以当做附件被下载，下载后的文件名称为$file_name该变量的值。
+            Header ( "Content-Disposition: attachment; filename=" . $context_name );
+
+            //读取文件内容并直接输出到浏览器
+            echo fread ( $file, filesize ($context_name) );
+            fclose ( $file );
+            exit ();
+        }
      }
-			$date=date("Y-m-d h:i:sa",time());
-      $sql="UPDATE news set  title='$title' ,date='$date' where ID=$id";
-      echo $sql;
-      echo "test";
-			$result=mysqli_query($connect,$sql);
-         if(!$result){
-            die("Could not enter data:".mysql_error());
-         }mysqli_close($connect);
-         echo "Entered data successfully!";
-			echo "<script>alert('更新成功');history.go('-1');location.reload('index.php');</script>";
 ?>

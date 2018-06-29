@@ -61,19 +61,19 @@ function getUrlQuery($array_query)
 
  				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
  					<ul class="nav navbar-nav">
- 						<li>
- 							 <a href="addNews.php">发布新闻</a>
- 						</li>
- 						<li >
- 							<a href="searchNews.php">查找新闻</a>
- 						</li>
+            <li >
+							 <a href="addNews.php">发布新闻</a>
+						</li>
+						<li >
+							<a href="searchNews.php">查找新闻</a>
+						</li>
+            <li >
+              <a href="manageNews.php">管理新闻</a>
+            </li>
             <?php session_start();
             if (isset($_SESSION['permission'])){
               if($_SESSION['permission']==1){
                 echo "
-                <li >
-                  <a href=\"manageNews.php\">管理新闻</a>
-                </li>
                 <li>
     							<a href=\"manageComments.php\">管理评论</a>
     						</li>";
@@ -120,10 +120,27 @@ function getUrlQuery($array_query)
  					 <label for="exampleInputPassword1">Title</label><input type="text" name="title" class="form-control" id="exampleInputPassword1" />
  				</div>
  				<div class="form-group">
- 					 <label for="exampleInputFile">File input</label><input type="file" name="file" id="file" />
- 					<p class="help-block">
- 						请选择txt文件
- 					</p>
+   					 <label for="exampleInputFile">请编辑内容</label>
+             <textarea name="content" style="width:700px;height:300px;" id="content">
+               <?php
+               $newsID=$arr_query['Gid'];
+               $connect = mysqli_connect('10.18.33.86','H_Z09415124','sujie1997','h_z09415124') or die('Unale to connect');
+               if (!$connect)
+               {
+                 die('Could not connect: ' . mysql_error());
+               }
+               $sql = "select context from news where id=$newsID;";
+           		// 执行sql语句返回结果集
+           		$result = mysqli_query($connect,$sql);
+           		while($row = mysqli_fetch_array($result))
+           		{
+                $context_name=$row['context'];
+                $myfile = fopen($context_name, "r") or die("Unable to open file!");
+                echo fread($myfile,filesize($context_name));
+              }
+                ?>
+             </textarea>
+
  				</div>
  				<div class="checkbox">
  					 <label><input type="checkbox" />Check me out</label>

@@ -58,21 +58,21 @@ function getUrlQuery($array_query)
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li >
+            <li >
 							 <a href="addNews.php">发布新闻</a>
 						</li>
-						<li>
+						<li >
 							<a href="searchNews.php">查找新闻</a>
 						</li>
+            <li >
+              <a href="manageNews.php">管理新闻</a>
+            </li>
             <?php session_start();
             if (isset($_SESSION['permission'])){
               if($_SESSION['permission']==1){
                 echo "
-                <li >
-                  <a href=\"manageNews.php\">管理新闻</a>
-                </li>
                 <li>
-    							<a href=\"manageComments.php\">新闻详情</a>
+    							<a href=\"manageComments.php\">管理评论</a>
     						</li>";
               }
             }

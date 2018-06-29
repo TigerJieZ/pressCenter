@@ -32,7 +32,6 @@ if($result = mysqli_fetch_array($check_query)){
     exit;
 } else {
 	echo "<script>alert('登录失败');history.go('-1');location.reload();</script>";
-    header("location:login.php");
 }
 ?>
 </body>
